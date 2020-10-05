@@ -1,10 +1,14 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { Home } from "./Home"
-import { LocationCard } from "./location/LocationCard"
-import { AnimalCard } from "./animal/AnimalCard"
-import { CustomerCard } from "./customer/CustomerCard"
-import { EmployeeCard } from "./employee/EmployeeCard"
+import { LocationProvider } from "./location/LocationProvider"
+import { LocationList } from "./location/LocationList"
+import { AnimalProvider } from "./animal/AnimalProvider"
+import { AnimalList } from "./animal/AnimalList"
+import { CustomerProvider } from "./customer/CustomerProvider"
+import { CustomerList } from "./customer/CustomerList"
+import { EmployeeProvider } from "./employee/EmployeeProvider"
+import { EmployeeList } from "./employee/EmployeeList"
 
 export const ApplicationViews = (props) => {
     return (
@@ -15,21 +19,34 @@ export const ApplicationViews = (props) => {
             </Route>
 
             {/* Render the animal list when http://localhost:3000/animals */}
-            <Route path="/locations">
-                <LocationCard />
-            </Route>
+            <LocationProvider>
+                <Route exact path="/locations">
+                    <h2>Locations</h2>
+                    <LocationList />
+                </Route>
+            </LocationProvider> 
             
-            <Route path="/animals">
-                <AnimalCard />
-            </Route>
+            
+            <AnimalProvider>
+                <Route exact path="/animals">
+                    <h2>Animals</h2>
+                    <AnimalList />
+                </Route>
+            </AnimalProvider> 
 
-            <Route path="/customers">
-                <CustomerCard />
-            </Route>
+            <CustomerProvider>
+                <Route exact path="/customers">
+                    <h2>Customers</h2>
+                    <CustomerList />
+                </Route>
+            </CustomerProvider> 
 
-            <Route path="/employees">
-                <EmployeeCard />
-            </Route>
+            <EmployeeProvider>
+                <Route exact path="/employees">
+                    <h2>Employees</h2>
+                    <EmployeeList />
+                </Route>
+            </EmployeeProvider> 
         </>
     )
 }
