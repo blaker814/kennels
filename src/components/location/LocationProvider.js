@@ -25,15 +25,14 @@ export const LocationProvider = (props) => {
             .then(getLocations)
     }
 
-    /*
-        You return a context provider which has the
-        `Locations` state, the `addLocation` function,
-        and the `getLocation` function as keys. This
-        allows any child elements to access them.
-    */
+    const getLocationById = id => {
+        return fetch(`http://localhost:8088/locations/${id}?_embed=employees&_embed=animals`)
+            .then(res => res.json())
+    }
+
     return (
         <LocationContext.Provider value={{
-            locations, getLocations, addLocation
+            locations, getLocations, addLocation, getLocationById
         }}>
             {props.children}
         </LocationContext.Provider>

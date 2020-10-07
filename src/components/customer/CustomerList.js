@@ -9,17 +9,19 @@ export const CustomerList = () => {
 	
 	//useEffect - reach out to the world for something
     useEffect(() => {
-		getCustomers()	
+		    getCustomers()	
     }, [])
 
-
     return (	
-		<div className="Customers">
-        {
-			customers.map(customer => {
-				return <CustomerCard key={customer.id} customer={customer} />
-			})
-        }
-        </div>
+        <>
+            <h2>Customers</h2>
+            <div className="Customers">
+                {
+                    customers.map(customer => {
+                      return <CustomerCard key={customer.id} customer={customer} />
+                    })
+                }
+            </div>
+        </>
     )
 }

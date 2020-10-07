@@ -10,21 +10,23 @@ export const AnimalList = () => {
   
     //useEffect - reach out to the world for something
     useEffect(() => {
-    getAnimals()	
+        getAnimals()	
     }, [])
 
 
     const history = useHistory()
 
     return (
-        <div className="animals">
+        <>
             <h2>Animals</h2>
             <button onClick={() => history.push("/animals/create")}>Add Animal</button>
-            {
-                animals.map(animal => {
-                    return <AnimalCard key={animal.id} animal={animal} />
-                })
-            } 
-        </div>
+            <div className="animals">
+                {
+                    animals.map(animal => {
+                        return <AnimalCard key={animal.id} animal={animal} />
+                    })
+                } 
+            </div>
+        </>
     )
 }

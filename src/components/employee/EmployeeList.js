@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react"
 import { EmployeeContext } from "./EmployeeProvider"
 import { EmployeeCard } from "./EmployeeCard"
 import "./Employee.css"
+import { useHistory } from "react-router-dom"
 
 export const EmployeeList = () => {
    // This state changes when `getEmployees()` is invoked below
@@ -9,17 +10,22 @@ export const EmployeeList = () => {
 	
 	//useEffect - reach out to the world for something
     useEffect(() => {
-		getEmployees()
+		    getEmployees()
     }, [])
 
+    const history = useHistory()
 
     return (	
-		<div className="Employees">
-        {
-			employees.map(employee => {
-				return <EmployeeCard key={employee.id} employee={employee} />
-			})
-        }
-        </div>
+        <>
+            <h2>Employees</h2>
+            <button type="button" onClick={() => history.push("/employees/create")}>New Employee</button>
+            <div className="Employees">
+                {
+                    employees.map(employee => {
+                        return <EmployeeCard key={employee.id} employee={employee} />
+                    })
+                }
+            </div>
+        </>
     )
 }
