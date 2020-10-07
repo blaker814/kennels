@@ -1,9 +1,13 @@
 import React from "react"
 import "./Customer.css"
+import { Link } from "react-router-dom"
 
 export const CustomerCard = ({ customer }) => (
     <section className="customer">
-        <h3 className="customer__name">{customer.name}</h3>
-        <div className="customer__location">Address: {customer.address}</div>
+        <h3 className="customer__name">
+            <Link to={`/customers/detail/${customer.id}`}>
+                {customer.name}
+            </Link>
+        </h3>
     </section>
 )

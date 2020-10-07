@@ -29,7 +29,7 @@ export const LocationDetail = () => {
                 <h4>Employees</h4> 
                 <p>
                     {
-                        employees.map(employee => `${employee.name}`).join(", ")
+                        employees.map(employee => employee.name).join(", ")
                     }
                 </p>
             </div>
@@ -37,7 +37,7 @@ export const LocationDetail = () => {
                 <h4>Current Residents</h4>
                 <p>
                     {
-                        animals.map(animal => `${animal.name}`).join(", ")
+                        animals.map(animal => animal.name).join(", ")
                     }
                 </p>
             </div>

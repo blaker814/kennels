@@ -29,9 +29,14 @@ export const CustomerProvider = (props) => {
             .then(getCustomers)
     }
 
+    const getCustomerById = id => {
+        return fetch(`http://localhost:8088/customers/${id}`)
+            .then(res => res.json())
+    }
+
     return (
         <CustomerContext.Provider value={{
-            customers, getCustomers, addCustomer
+            customers, getCustomers, addCustomer, getCustomerById
         }}>
             {props.children}
         </CustomerContext.Provider>
