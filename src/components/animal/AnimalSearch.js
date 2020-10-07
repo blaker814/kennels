@@ -7,7 +7,7 @@ export const AnimalSearch = () => {
 
     return (
         <>
-            <label htmlFor="animalSearch"><b>Animal search: </b></label> 
+            <label htmlFor="animalSearch">Search animals: </label> 
             <input type="text"
                 className="input--wide"
                 id="animalSearch"
