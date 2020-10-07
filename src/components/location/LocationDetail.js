@@ -1,15 +1,16 @@
 import React, { useContext, useState, useEffect } from "react"
 import { LocationContext } from "./LocationProvider"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 
 export const LocationDetail = () => {
-    const { getLocationById } = useContext(LocationContext)
+    const { getLocationById, closeLocation } = useContext(LocationContext)
 
     const [location, setLocation] = useState({})
     const [employees, setEmployees] = useState([])
     const [animals, setAnimals] = useState([])
 
     const { locationId } = useParams()
+    const history = useHistory()
 
     useEffect(() => {
         getLocationById(locationId)
@@ -40,6 +41,10 @@ export const LocationDetail = () => {
                     }
                 </p>
             </div>
+            <button type="button" onClick={() => {
+                closeLocation(location.id)
+                .then(() => history.push("/locations"))
+            }}>Close Location</button>
         </section>
     )
 }
