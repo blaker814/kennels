@@ -1,46 +1,83 @@
-import React, { useEffect, useContext, useRef } from "react"
-import { useHistory } from "react-router-dom"
+import React, { useContext, useEffect, useState } from "react"
+import { useHistory, useParams } from "react-router-dom"
 import { LocationContext } from "./LocationProvider"
 
 export const LocationForm = () => {
-    const { addLocation } = useContext(LocationContext)
+    const { addLocation, updateLocation, getLocationById } = useContext(LocationContext)
 
-    const name = useRef()
-    const address = useRef()
+    const [location, setLocation] = useState({})
+    const [isLoading, setIsLoading] = useState(true);
 
-    const constructNewLocation = () => {
+    const {locationId} = useParams()
+    const history = useHistory()
 
-        addLocation({
-            name: name.current.value,
-            address: address.current.value
-        })
-        .then(() => history.push("/Locations"))
+    useEffect(() => {
+        if (locationId) {
+            getLocationById(locationId)
+            .then(location => {
+                setLocation(location)
+                setIsLoading(false)
+            })
+        } else {
+            setIsLoading(false)
+        }
+    }, [])
+
+    const handleControlledInputChange = event => {
+        const newLocation = { ...location }
+        newLocation[event.target.name] = event.target.value
+        setLocation(newLocation)
     }
 
-    const history = useHistory()
+    const constructLocationObject = () => {
+        setIsLoading(false);
+        if (locationId) {
+            updateLocation({
+                id: location.id,
+                name: location.name,
+                address: location.address
+            })
+            .then(() => history.push(`/locations/detail/${location.id}`))
+        } else {
+            addLocation({
+                name: location.name,
+                address: location.address
+            })
+            .then(() => history.push("/locations"))
+        }
+    }
 
     return (
         <form className="locationForm">
-            <h2 className="locationForm__title">New Location</h2>
+            <h2 className="locationForm__title">
+                {locationId ? "Update Location" : "New Location"}
+            </h2>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="locationName">Location name: </label>
-                    <input type="text" id="locationName" ref={name} required autoFocus className="form-control" placeholder="Location name" />
+                    <input type="text" id="locationName" name="name" required autoFocus 
+                    className="form-control" placeholder="Location name" 
+                    onChange={handleControlledInputChange} 
+                    defaultValue={location.name}/>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="address">Address: </label>
-                    <input type="text" id="address" ref={address} required className="form-control" placeholder="Address" />
+                    <input type="text" id="address" name="address" required 
+                    className="form-control" placeholder="Address" 
+                    onChange={handleControlledInputChange} 
+                    defaultValue={location.address} />
                 </div>
             </fieldset>
             <button type="submit"
+                disabled = {isLoading}
                 onClick={evt => {
                     evt.preventDefault() // Prevent browser from submitting the form
-                    constructNewLocation()
+                    constructLocationObject()
                 }}
                 className="btn btn-primary">
-                Save Location
+                {locationId ? "Save Location" : "Add Location"}
             </button>
         </form>
     )

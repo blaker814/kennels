@@ -45,6 +45,9 @@ export const LocationDetail = () => {
                 closeLocation(location.id)
                 .then(() => history.push("/locations"))
             }}>Close Location</button>
+            <button type="button" onClick={() => {
+                history.push(`/locations/edit/${location.id}`)
+            }}>Edit</button>
         </section>
     )
 }

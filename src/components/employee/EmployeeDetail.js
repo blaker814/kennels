@@ -29,6 +29,9 @@ export const EmployeeDetail = () => {
                         history.push("/employees")
                     })
             }}>Fire Employee</button>
+            <button type="button" onClick={() => {
+                history.push(`/employees/edit/${employee.id}`)
+            }}>Edit</button>
         </section>
     )
 }

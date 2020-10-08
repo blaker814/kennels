@@ -16,7 +16,7 @@ export const AnimalForm = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const {animalId} = useParams();
-	const history = useHistory();
+    const history = useHistory();
 
     //when field changes, update state. This causes a re-render and updates the view.
     //Controlled component
@@ -77,7 +77,9 @@ export const AnimalForm = () => {
     
     return (
         <form className="animalForm">
-            <h2 className="animalForm__title">New Animal</h2>
+            <h2 className="animalForm__title">
+                {animalId ? "Update Animal" : "New Animal"}
+            </h2>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="animalName">Animal name: </label>
@@ -100,7 +102,7 @@ export const AnimalForm = () => {
                 <div className="form-group">
                     <label htmlFor="location">Assign to location: </label>
                     <select value={animal.locationId} name="locationId" id="animalLocation" className="form-control" onChange={handleControlledInputChange}>
-                        <option value="0">Select a location</option>
+                        <option value="0" hidden>Select a location</option>
                         {locations.map(l => (
                             <option key={l.id} value={l.id}>
                                 {l.name}
@@ -113,7 +115,7 @@ export const AnimalForm = () => {
                 <div className="form-group">
                     <label htmlFor="customer">Customer: </label>
                     <select value={animal.customerId} name="customerId" id="customerAnimal" className="form-control" onChange={handleControlledInputChange}>
-                        <option value="0">Select a customer</option>
+                        <option value="0" hidden>Select a customer</option>
                         {customers.map(c => (
                             <option key={c.id} value={c.id}>
                                 {c.name}
@@ -128,7 +130,7 @@ export const AnimalForm = () => {
                     event.preventDefault() // Prevent browser from submitting the form
                     constructAnimalObject()
                 }}>
-            {animalId ? <>Save Animal</> : <>Add Animal</>}</button>
+            {animalId ? "Save Animal" : "Add Animal"}</button>
         </form>
     )
 }

@@ -48,6 +48,12 @@ export const ApplicationViews = (props) => {
                     <LocationForm />
                 </Route>
             </LocationProvider> 
+
+            <LocationProvider>
+                <Route exact path="/locations/edit/:locationId(\d+)">
+                    <LocationForm />
+                </Route>
+            </LocationProvider> 
             
             <AnimalProvider>
                 <Route exact path="/animals">
@@ -109,6 +115,14 @@ export const ApplicationViews = (props) => {
             <EmployeeProvider>
                 <LocationProvider>
                     <Route exact path="/employees/create">
+                        <EmployeeForm />
+                    </Route>
+                </LocationProvider>
+            </EmployeeProvider>
+
+            <EmployeeProvider>
+                <LocationProvider>
+                    <Route exact path="/employees/edit/:employeeId(\d+)">
                         <EmployeeForm />
                     </Route>
                 </LocationProvider>
