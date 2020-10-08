@@ -7,7 +7,8 @@ export const AnimalSearch = () => {
 
     useEffect(() => {
         setSearchTerms("")
-    })
+    }, [])
+    
     return (
         <>
             <label htmlFor="animalSearch">Search animals: </label> 
